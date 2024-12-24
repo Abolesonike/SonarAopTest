@@ -8,6 +8,8 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 import sonar.dto.JavaFileLine;
 
 import java.io.BufferedReader;
@@ -17,10 +19,12 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class JavaFileSensor implements Sensor {
+    private static final Logger LOGGER = Loggers.get(JavaFileSensor.class);
 
     @Override
     public void describe(SensorDescriptor sensorDescriptor) {
-
+        sensorDescriptor.name("java sensor");
+        sensorDescriptor.onlyOnLanguage("java");
     }
 
     @Override
@@ -58,7 +62,7 @@ public class JavaFileSensor implements Sensor {
                     doJavaFileLine(fileLine);
                 }
             } catch (IOException e) {
-                //LOGGER.error("Line IOException:" + javaFile.filename() + ":" + e.getMessage());
+                LOGGER.error("Line IOException:" + javaFile.filename() + ":" + e.getMessage());
             }
         }
     }
