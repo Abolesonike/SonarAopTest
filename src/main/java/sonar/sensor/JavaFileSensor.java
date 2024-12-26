@@ -11,6 +11,7 @@ import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import sonar.dto.JavaFileLine;
+import sonar.dto.SensorInfo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +32,10 @@ public class JavaFileSensor implements Sensor {
     public void execute(SensorContext sensorContext) {
         FileSystem fs = sensorContext.fileSystem();
         Iterable<InputFile> javaFiles = fs.inputFiles(fs.predicates().hasLanguage("java"));
+        SensorInfo sensorInfo = new SensorInfo();
+        sensorInfo.setSensorContext(sensorContext);
         for (InputFile javaFile : javaFiles) {
+            sensorInfo.setInputFile(javaFile);
             InputStream inputStream;
             BufferedReader reader;
             try {
@@ -44,11 +48,11 @@ public class JavaFileSensor implements Sensor {
             CompilationUnit compilationUnit = JavaParser.parse(inputStream);
 
             // 文件规则
-            doJavaFile(compilationUnit);
+            doJavaFile(compilationUnit, sensorInfo);
 
             for (MethodDeclaration method : compilationUnit.findAll(MethodDeclaration.class)) {
                 // 方法规则
-                doJavaMethod(method);
+                doJavaMethod(method, sensorInfo);
             }
 
             try {
@@ -59,7 +63,7 @@ public class JavaFileSensor implements Sensor {
                     fileLine.setLineNum(fileLine.getLineNum() + 1);
 
                     // 单行规则
-                    doJavaFileLine(fileLine);
+                    doJavaFileLine(fileLine, sensorInfo);
                 }
             } catch (IOException e) {
                 LOGGER.error("Line IOException:" + javaFile.filename() + ":" + e.getMessage());
@@ -67,15 +71,15 @@ public class JavaFileSensor implements Sensor {
         }
     }
 
-    public void doJavaFile(CompilationUnit compilationUnit) {
+    public void doJavaFile(CompilationUnit compilationUnit, SensorInfo sensorInfo) {
 
     }
 
-    public void doJavaMethod(MethodDeclaration methodDeclaration) {
+    public void doJavaMethod(MethodDeclaration methodDeclaration, SensorInfo sensorInfo) {
 
     }
 
-    public void doJavaFileLine(JavaFileLine fileLine) {
+    public void doJavaFileLine(JavaFileLine fileLine, SensorInfo sensorInfo) {
 
     }
 }

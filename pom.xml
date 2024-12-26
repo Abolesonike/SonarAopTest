@@ -44,6 +44,12 @@
             <artifactId>javaparser-core</artifactId>
             <version>3.6.16</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
 
 
     </dependencies>

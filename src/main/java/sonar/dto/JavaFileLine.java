@@ -1,5 +1,8 @@
 package sonar.dto;
 
+import lombok.Data;
+
+@Data
 public class JavaFileLine {
     private String line;
     private int lineNum = 0;
