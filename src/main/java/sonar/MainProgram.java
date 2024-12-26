@@ -47,7 +47,7 @@ public class MainProgram {
                                 if (statement instanceof ExpressionStmt) {
                                     Matcher matcher = pageHelperPattern.matcher(expressionString);
                                     if (matcher.find()) {
-                                        pageHelperStartIndex = statements.indexOf(statement);
+                                        pageHelperStartIndex =  statement.getBegin().get().line;
                                     }
                                 }
                             } else {
@@ -56,6 +56,7 @@ public class MainProgram {
                                 Matcher matcher = queryPattern.matcher(split[0]);
                                 if (!matcher.find()) {
                                     System.out.println("PageHelper.startPage()之后的第一个Mapper或Service调用: " + split[0]);
+                                    System.out.println("lineNumber: " + pageHelperStartIndex);
                                 }
                                 pageHelperStartIndex = -1;
                             }

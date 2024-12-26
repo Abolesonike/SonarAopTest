@@ -45,13 +45,13 @@ public class PageHelperRule extends JavaMethodRule{
                         // 1.先找到PageHelper.startPage()的位置
                         if (statement instanceof ExpressionStmt) {
                             Matcher matcher = pageHelperPattern.matcher(expressionString);
-                            if (matcher.find()) {
-                                pageHelperStartIndex = statements.indexOf(statement);
+                            if (matcher.find() && statement.getBegin().isPresent()) {
+                                pageHelperStartIndex = statement.getBegin().get().line;
                             }
                         }
                     } else {
                         // 2.找到PageHelper.startPage()之后的第一个Mapper或Service调用
-                        String[] split = expressionString.split(";");
+                        String[] split = expressionString.split("\n");
                         Matcher matcher = queryPattern.matcher(split[0]);
                         if (!matcher.find()) {
                             super.createIssue(
