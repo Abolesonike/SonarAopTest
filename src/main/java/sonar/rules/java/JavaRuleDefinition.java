@@ -12,6 +12,7 @@ public class JavaRuleDefinition implements RulesDefinition {
     public static final String LANGUAGE = "java";
 
     public static final RuleKey JAVA_INVALID_PAGE_HELPER = RuleKey.of(REPO_KEY, RuleConstant.JAVA_INVALID_PAGE_HELPER);
+    public static final RuleKey JAVA_LOOP_QUERY = RuleKey.of(REPO_KEY, RuleConstant.JAVA_LOOP_QUERY);
 
     @Override
     public void define(Context context) {
@@ -24,5 +25,13 @@ public class JavaRuleDefinition implements RulesDefinition {
                 .setType(RuleType.BUG)
                 .setSeverity(Severity.MINOR);
         javaRule01.setDebtRemediationFunction(javaRule01.debtRemediationFunctions().linear("20min"));
+
+        NewRule javaRule02 = repository.createRule(JAVA_LOOP_QUERY.rule())
+                .setName("loop query")
+                .setHtmlDescription("循环语句查询数据库。")
+                .setTags("java")
+                .setType(RuleType.CODE_SMELL)
+                .setSeverity(Severity.MINOR);
+        javaRule02.setDebtRemediationFunction(javaRule02.debtRemediationFunctions().linear("20min"));
     }
 }

@@ -22,12 +22,22 @@ import java.nio.charset.StandardCharsets;
 public class JavaFileSensor implements Sensor {
     private static final Logger LOGGER = Loggers.get(JavaFileSensor.class);
 
+    /**
+     * 重写 describe 方法，描述Sensor信息
+     *
+     * @param sensorDescriptor 传感器描述符对象，用于设置传感器的信息
+     */
     @Override
     public void describe(SensorDescriptor sensorDescriptor) {
         sensorDescriptor.name("java sensor");
         sensorDescriptor.onlyOnLanguage("java");
     }
 
+    /**
+     * 执行方法，对Java文件进行规则检查
+     *
+     * @param sensorContext 传感器上下文，包含文件系统等信息
+     */
     @Override
     public void execute(SensorContext sensorContext) {
         FileSystem fs = sensorContext.fileSystem();
@@ -71,14 +81,32 @@ public class JavaFileSensor implements Sensor {
         }
     }
 
+    /**
+     * 对Java文件进行特定处理。
+     *
+     * @param compilationUnit 要处理的Java编译单元
+     * @param sensorInfo      包含传感器上下文和其他相关信息的对象
+     */
     public void doJavaFile(CompilationUnit compilationUnit, SensorInfo sensorInfo) {
 
     }
 
+    /**
+     * 对Java方法进行特定处理。
+     *
+     * @param methodDeclaration 要处理的Java方法声明
+     * @param sensorInfo        包含传感器上下文和其他相关信息的对象
+     */
     public void doJavaMethod(MethodDeclaration methodDeclaration, SensorInfo sensorInfo) {
 
     }
 
+    /**
+     * 对Java文件中的每一行进行特定处理。
+     *
+     * @param fileLine  包含Java文件某一行信息的对象
+     * @param sensorInfo 包含传感器上下文和其他相关信息的对象
+     */
     public void doJavaFileLine(JavaFileLine fileLine, SensorInfo sensorInfo) {
 
     }
