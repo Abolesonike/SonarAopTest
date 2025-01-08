@@ -66,7 +66,7 @@ public class LoopQueryRule extends JavaMethodRule {
                                 sensorInfo.getInputFile(),
                                 JavaRuleDefinition.JAVA_LOOP_QUERY,
                                 lineNum,
-                                "失效的分页查询");
+                                "循环查询");
                     }
                 });
             });

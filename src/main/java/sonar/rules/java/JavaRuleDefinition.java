@@ -21,7 +21,7 @@ public class JavaRuleDefinition implements RulesDefinition {
         NewRule javaRule01 = repository.createRule(JAVA_INVALID_PAGE_HELPER.rule())
                 .setName("invalid pageHelper")
                 .setHtmlDescription("失效的pageHelper分页查询。")
-                .setTags("java", "pageHelper")
+                .setTags("java", "pagehelper")
                 .setType(RuleType.BUG)
                 .setSeverity(Severity.MINOR);
         javaRule01.setDebtRemediationFunction(javaRule01.debtRemediationFunctions().linear("20min"));
@@ -33,5 +33,7 @@ public class JavaRuleDefinition implements RulesDefinition {
                 .setType(RuleType.CODE_SMELL)
                 .setSeverity(Severity.MINOR);
         javaRule02.setDebtRemediationFunction(javaRule02.debtRemediationFunctions().linear("20min"));
+
+        repository.done();
     }
 }
